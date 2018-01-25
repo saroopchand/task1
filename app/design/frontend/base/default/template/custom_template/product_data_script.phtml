@@ -9,7 +9,7 @@
     $productId  =   $_product->getId();
     $reviews    =   $helper->getReviews( $productId );
     $images     =   $helper->getImages( $productId );
-    $price      =   $helper->getPrice( $_product );
+    $price      =   $helper->getSpecialPrice( $_product );
 ?>
 
 <script type="application/<?php echo $productId;?>+json">

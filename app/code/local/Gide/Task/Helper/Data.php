@@ -36,7 +36,7 @@ class Gide_Task_Helper_Data extends Mage_Catalog_Helper_Data
          $_images = Mage::getModel('catalog/product')->load( $id )->getMediaGalleryImages();
          $result = "";
          foreach( $_images as $image ){
-             $result .= $image->getUrl().',';
+             $result .= '"'.$image->getUrl().'"'.',';
          }
          return rtrim( $result , ',' );
      }
