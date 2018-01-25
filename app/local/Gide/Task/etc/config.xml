@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gide_Task>
+            <version>0.1.0</version>
+        </Gide_Task>
+    </modules>
+    <global>
+        <models>
+            <task>
+                <class>Gide_Task_Model</class>
+            </task>
+        </models>
+        <helpers>
+            <task>
+                <class>Gide_Task_Helper</class>
+            </task>
+        </helpers>
+    </global>
+    <frontend>
+        <events>
+            <controller_action_layout_generate_xml_before>
+                <observers>
+                    <customer_is_logged_in_observer>
+                        <class>Gide_Task_Model_Observer</class>
+                        <method>beforeLoadLayout</method>
+                    </customer_is_logged_in_observer>
+                </observers>
+        </controller_action_layout_generate_xml_before>
+        </events>
+    </frontend>
+</config>

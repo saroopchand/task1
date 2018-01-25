@@ -1,0 +1,37 @@
+<?php
+    $helper     =   Mage::helper('task');
+    $_product   =   Mage::registry('current_product');
+
+    $stock      =   'OutOfStock';
+    if( $_product->getIsInStock() )
+        $stock  =   'InStock';
+
+    $productId  =   $_product->getId();
+    $reviews    =   $helper->getReviews( $productId );
+    $images     =   $helper->getImages( $productId );
+    $price      =   $helper->getPrice( $_product );
+?>
+
+<script type="application/<?php echo $productId;?>+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Product",
+  "name": "<?php echo $this->escapeHtml(stripslashes($_product->getName()))?>",
+  "image": [<?php echo $images; ?>],
+  "description": "<?php echo $this->escapeHtml(stripslashes($_product->getDescription()));?>",
+  "sku": "<?php echo $_product->getSku();?>",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "<?php echo ceil($reviews['avg']) ; ?>",
+    "reviewCount": "<?php echo $reviews['totalCount'] ; ?>"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "<?php echo Mage::app()->getStore()->getCurrentCurrencyCode()?>",
+    "price": "<?php echo $price['price'];?>",
+    "priceValidUntil": "<?php echo $price['validDate'] ?>",
+    "itemCondition": "http://schema.org/UsedCondition",
+    "availability": "http://schema.org/<?php echo $stock; ?>"
+  }
+}
+</script>
